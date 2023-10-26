@@ -1,0 +1,32 @@
+name: ssr-deployment
+
+
+on:
+  push:
+    branchs: [main]
+
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.16.0]
+
+    name: angular-deployment
+    steps:
+      -uses: actions/checkout@v3
+
+      -name: Install dependencies
+       run: npm install
+
+      -name: Install wrangler
+       run: npm install wrangler
+
+      -name: deploy project
+       run: |
+        CLOUDFLARE_API_TOKEN=${{secrets.CLOUDFLARE_API_TOKEN}}
+        wrangler pages deploy dist/cloudfalre
