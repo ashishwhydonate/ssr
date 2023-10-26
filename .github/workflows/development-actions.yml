@@ -27,5 +27,7 @@ jobs:
 
       - name: Deploy project
         run: |
-          CLOUDFLARE_API_TOKEN=${{ secrets.CLOUDFLARE_API_TOKEN }}
-          wrangler pages publish dist/cloudflare
+          CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN
+          wrangler pages deploy dist/cloudflare
+        env:
+          CLOUDFLARE_API_TOKEN: ${{secrets.CLOUDFLARE_API_TOKEN }}
