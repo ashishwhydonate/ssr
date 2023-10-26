@@ -3,7 +3,8 @@ name: ssr-deployment
 
 on:
   push:
-    branchs: [main]
+    branchs: 
+        - main
 
   workflow_dispatch:
 
@@ -24,7 +25,7 @@ jobs:
        run: npm install
 
       -name: Install wrangler
-       run: npm install wrangler
+       run: npm install -g @cloudflare/wrangler
 
       -name: deploy project
        run: |
