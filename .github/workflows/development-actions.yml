@@ -1,15 +1,12 @@
 name: ssr-deployment
 
-
 on:
   push:
-    branchs: 
-        - main
-
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
 
@@ -19,15 +16,16 @@ jobs:
 
     name: angular-deployment
     steps:
-      -uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      -name: Install dependencies
-       run: npm install
+      - name: Install dependencies
+        run: npm install
 
-      -name: Install wrangler
-       run: npm install -g @cloudflare/wrangler
+      - name: Install wrangler
+        run: npm install -g @cloudflare/wrangler
 
-      -name: deploy project
-       run: |
-        CLOUDFLARE_API_TOKEN=${{secrets.CLOUDFLARE_API_TOKEN}}
-        wrangler pages deploy dist/cloudfalre
+      - name: Deploy project
+        run: |
+          CLOUDFLARE_API_TOKEN=${{ secrets.CLOUDFLARE_API_TOKEN }}
+          wrangler pages publish dist/cloudflare
